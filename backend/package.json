@@ -1,0 +1,31 @@
+{
+  "name": "ecommerce-app",
+  "version": "1.0.0",
+  "description": "e-commerce de electrodomesticos. Proyecto universitario",
+  "main": "src/server.js",
+  "scripts": {
+    "build":"tsc",
+    "dev":"tsx watch src/server.js"
+  },
+  "keywords": [],
+  "author": "Matias Carrillo",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.7.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/morgan": "^1.9.10",
+    "morgan": "^1.11.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
