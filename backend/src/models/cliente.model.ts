@@ -1,0 +1,31 @@
+import mongoose, { Schema, Document, type ObjectId } from "mongoose";
+
+type estado = 'activo' | 'no activo'
+
+export interface ICliente extends Document {
+    nombre: string
+    apellido: string
+    email: string
+    contrasena: string
+    estado: estado
+}
+
+// dto para la respuesta del servidor
+export interface IResponseClienteDto {
+    _id: ObjectId
+    nombre: string
+    apellido: string
+    email: string
+    estado: estado
+}
+
+const clienteSchema = new Schema<ICliente>({
+    nombre: {type: String, required: true},
+    apellido: {type: String, required: true},
+    email: {type: String, required: true, unique: true},
+    contrasena: {type: String, required: true},
+    estado: {type: String, enum: ['activo','no activo'], default: 'activo'}
+    
+}, {timestamps: true})
+
+export const ClienteModel = mongoose.model<ICliente>('Cliente',clienteSchema)
