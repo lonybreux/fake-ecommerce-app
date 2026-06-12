@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 
 import { CLIENT_URL } from './config/env.js'
+import authRouter from './routes/auth.routes.js'
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.use(express.json())
 
 
 // routes
+app.use('/api/auth',authRouter)
 
 app.use((_req,res) => {
    res.status(404).json({
