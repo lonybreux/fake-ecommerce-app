@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, type ObjectId } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 type estado = 'activo' | 'no activo'
 
@@ -12,7 +12,7 @@ export interface ICliente extends Document {
 
 // dto para la respuesta del servidor
 export interface IResponseClienteDto {
-    _id: ObjectId
+    _id: Types.ObjectId
     nombre: string
     apellido: string
     email: string
