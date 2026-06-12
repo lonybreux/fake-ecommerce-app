@@ -4,8 +4,8 @@
   "description": "e-commerce de electrodomesticos. Proyecto universitario",
   "main": "src/server.js",
   "scripts": {
-    "build":"tsc",
-    "dev":"tsx watch src/server.js"
+    "build": "tsc",
+    "dev": "tsx watch src/server.js"
   },
   "keywords": [],
   "author": "Matias Carrillo",
@@ -23,6 +23,7 @@
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "morgan": "^1.11.0",
     "tsx": "^4.22.4",
