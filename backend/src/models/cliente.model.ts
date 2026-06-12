@@ -19,6 +19,14 @@ export interface IResponseClienteDto {
     estado: estado
 }
 
+// dto para la creación de un cliente
+export interface ICreateClienteDto {
+    nombre: string
+    apellido: string
+    email: string
+    contrasena: string
+}
+
 const clienteSchema = new Schema<ICliente>({
     nombre: {type: String, required: true},
     apellido: {type: String, required: true},
