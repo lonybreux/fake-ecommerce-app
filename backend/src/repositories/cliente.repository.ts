@@ -12,7 +12,7 @@ export default class ClienteRepository implements IRepository<ICliente> {
     public async findOne(entity: Partial<ICliente>): Promise<ICliente | null> {
         return await ClienteModel.findOne(entity)
     }
-    public async create(entity: ICliente): Promise<ICliente> {
+    public async create(entity: Partial<ICliente>): Promise<ICliente> {
        return await ClienteModel.create(entity)
     }
     public async update(id: string, entity: Partial<ICliente>): Promise<ICliente | null> {

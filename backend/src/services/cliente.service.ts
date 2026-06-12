@@ -1,4 +1,4 @@
-import type { ICliente } from "../models/cliente.model.js";
+import type { ICliente, ICreateClienteDto } from "../models/cliente.model.js";
 import type IRepository from "../repositories/IRepository.js";
 
 export default class ClienteService {
@@ -25,7 +25,7 @@ export default class ClienteService {
         return cliente
     }
 
-    public async createCliente(cliente: ICliente): Promise<ICliente> {
+    public async createCliente(cliente: ICreateClienteDto): Promise<ICliente> {
         const clienteExists = await this.repository.findOne({email: cliente.email})
 
         if(clienteExists) throw new Error('Este cliente ya existe')
