@@ -1,0 +1,130 @@
+import type { Request, Response } from "express"
+import type ReviewService from "../services/review.service.js"
+import type { ICreateReview } from "../models/review.model.js"
+
+export default class ReviewController {
+
+    constructor(private reviewService: ReviewService){}
+
+    public getReviews = async (_req: Request, res: Response): Promise<void> => {
+        try {
+            const reviews = await this.reviewService.findAllReviews()
+
+            res.json({
+                body: reviews
+            })
+            return
+        } catch(error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
+
+    public getReviewsByProductId = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { id } = req.params
+
+            if(!id) {
+                res.status(400).json({
+                    message: 'id de producto requerido'
+                })
+                return
+            }
+
+            const reviews = await this.reviewService.findReviewsByProductId(id as string)
+
+            res.json({
+                body: reviews
+            })
+            return
+        } catch (error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
+
+    public getReviewsByClienteId = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { id } = req.params
+
+            if(!id) {
+                res.status(400).json({
+                    message: 'id de cliente requerido'
+                })
+                return
+            }
+
+            const reviews = await this.reviewService.findReviewsByClienteId(id as string)
+
+            res.json({
+                body: reviews
+            })
+            return
+        } catch(error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
+
+    public postReview = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { clienteId, productoId, rating } = req.body
+
+            if(!clienteId || !productoId || !rating) {
+                res.status(400).json({
+                    message: 'todos los campos son requeridos'
+                })
+                return 
+            }
+
+            const newReview: ICreateReview = {
+                clienteId,
+                productoId,
+                rating
+            }
+
+            const review = await this.reviewService.createReview(newReview)
+
+            res.json({
+                body: review
+            })
+            return
+        } catch(error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
+
+    public deleteReview = async(req: Request, res: Response): Promise<void> => {
+        try  {
+            const { id } = req.params
+
+            if(!id) {
+                res.status(400).json({
+                    message: 'id de review requerido'
+                })
+                return
+            }
+
+            await this.reviewService.deleteReview(id as string)
+
+            res.json({
+                message: 'review eliminado correctamente'
+            })
+            return
+        } catch(error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
+}
