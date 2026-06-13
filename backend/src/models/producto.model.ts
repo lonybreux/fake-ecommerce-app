@@ -36,7 +36,7 @@ const productoSchema = new Schema<IProducto>({
     nombre: {type: String, required: true},
     precio: {type: Number, required: true},
     estado: {type: String, enum: ['disponible','no disponible'], default: 'disponible'},
-    marca: {type: Object({nombre: String,imagen: String}), required: true},
+    marca: {nombre: {type: String, required: true}, imagen: {type: String, required: true}},
     categoria: {type: String, required: true},
     imagen: {type: String, required: true},
     rating: {type: Number, default: 0.0},
