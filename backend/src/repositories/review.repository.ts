@@ -6,6 +6,11 @@ export default class ReviewRepository implements IRepository<IReview> {
     public async findAll(): Promise<IReview[]> {
         return await ReviewModel.find()
     }
+
+    public async findMany(entity: Partial<IReview>): Promise<IReview[]> {
+        return await ReviewModel.find(entity)
+    }
+
     public async findById(id: string): Promise<IReview | null> {
         return await ReviewModel.findById(id)
     }
