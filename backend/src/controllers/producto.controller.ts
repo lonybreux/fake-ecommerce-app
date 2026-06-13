@@ -6,7 +6,7 @@ export default class ProductoController {
 
     constructor(private productoService: ProductoService){}
 
-    public getProductos = async (req: Request, res: Response): Promise<void> => {
+    public getProductos = async (_req: Request, res: Response): Promise<void> => {
         try {
             const productos = await this.productoService.findAllProductos()
 
