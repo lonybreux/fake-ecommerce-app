@@ -8,7 +8,7 @@ export interface IReview extends Document {
     rating: Rating
 }
 
-export interface ICreateReview {
+export interface ICreateReviewDto {
     clienteId: Types.ObjectId
     productoId: Types.ObjectId
     rating: Rating

@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
 import type ReviewService from "../services/review.service.js"
-import type { ICreateReview } from "../models/review.model.js"
+import type { ICreateReviewDto } from "../models/review.model.js"
 import { Types } from "mongoose"
 
 export default class ReviewController {
@@ -59,7 +59,7 @@ export default class ReviewController {
                 return
             }
 
-            const reviews = await this.reviewService.findReviewsByClienteId(id as string)
+            const reviews = await this.reviewService.findReviewsByClienteId(id)
 
             res.json({
                 body: reviews
@@ -85,7 +85,7 @@ export default class ReviewController {
                 return 
             }
 
-            const newReview: ICreateReview = {
+            const newReview: ICreateReviewDto = {
                 clienteId: new Types.ObjectId(clienteId),
                 productoId,
                 rating
