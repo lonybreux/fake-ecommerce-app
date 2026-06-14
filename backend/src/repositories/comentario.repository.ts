@@ -12,6 +12,10 @@ export default class ComentarioRepository implements IRepository<IComentario> {
     public async findOne(entity: Partial<IComentario>): Promise<IComentario | null> {
         return await ComentarioModel.findOne(entity)
     }
+    public async findMany(entity: Partial<IComentario>): Promise<IComentario[]> {
+        return await ComentarioModel.find(entity)
+    }
+
     public async create(entity: Partial<IComentario>): Promise<IComentario> {
         return await ComentarioModel.create(entity)
     }
