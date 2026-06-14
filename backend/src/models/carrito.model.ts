@@ -22,6 +22,6 @@ const carritoSchema = new Schema<ICarrito>({
         productoId: {type: Types.ObjectId, ref: 'Producto' ,required: true},
         cantidad: {type: Number, required: true}
     }]
-})
+}, {timestamps: true})
 
 export const CarritoModel = model<ICarrito>('Carrito',carritoSchema)

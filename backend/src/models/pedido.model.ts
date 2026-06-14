@@ -10,7 +10,6 @@ export interface IPedido extends Document {
 
 export interface ICreatePedidoDto {
     clienteId: Types.ObjectId
-    estado: EstadoPedido
     total: number
 }
 
