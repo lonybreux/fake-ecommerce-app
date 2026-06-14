@@ -86,7 +86,7 @@ export default class ReviewController {
             }
 
             const newReview: ICreateReview = {
-                clienteId = new Types.ObjectId(clienteId),
+                clienteId: new Types.ObjectId(clienteId),
                 productoId,
                 rating
             }

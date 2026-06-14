@@ -5,6 +5,7 @@ import cors from 'cors'
 import { CLIENT_URL } from './config/env.js'
 import authRouter from './routes/auth.routes.js'
 import productoRouter from './routes/producto.routes.js'
+import reviewRouter from './routes/review.routes.js'
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(express.json())
 // routes
 app.use('/api/auth',authRouter)
 app.use('/api/productos',productoRouter)
+app.use('/api/reviews', reviewRouter)
 
 app.use((_req,res) => {
    res.status(404).json({
