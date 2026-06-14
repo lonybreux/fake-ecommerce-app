@@ -6,6 +6,7 @@ import { CLIENT_URL } from './config/env.js'
 import authRouter from './routes/auth.routes.js'
 import productoRouter from './routes/producto.routes.js'
 import reviewRouter from './routes/review.routes.js'
+import comentarioRouter from './routes/comentario.routes.js'
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use(express.json())
 app.use('/api/auth',authRouter)
 app.use('/api/productos',productoRouter)
 app.use('/api/reviews', reviewRouter)
+app.use('/api/comentarios',comentarioRouter)
 
 app.use((_req,res) => {
    res.status(404).json({
