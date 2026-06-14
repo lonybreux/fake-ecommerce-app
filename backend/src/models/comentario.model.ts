@@ -5,7 +5,7 @@ export interface IComentario extends Document {
     contenido: string
 }
 
-export interface ICreateComentario {
+export interface ICreateComentarioDto {
     clienteId: Types.ObjectId
     contenido: string
 }
