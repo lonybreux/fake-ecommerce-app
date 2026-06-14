@@ -12,7 +12,6 @@ export interface IEnvio extends Document {
 export interface ICreateEnvioDto {
     pedidoId: Types.ObjectId
     fechaEntrega: Date
-    estado: EstadoEnvio
     direccion: string
 }
 
