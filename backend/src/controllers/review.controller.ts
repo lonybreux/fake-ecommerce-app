@@ -1,6 +1,7 @@
 import type { Request, Response } from "express"
 import type ReviewService from "../services/review.service.js"
 import type { ICreateReview } from "../models/review.model.js"
+import { Types } from "mongoose"
 
 export default class ReviewController {
 
@@ -49,7 +50,7 @@ export default class ReviewController {
 
     public getReviewsByClienteId = async (req: Request, res: Response): Promise<void> => {
         try {
-            const { id } = req.params
+            const id = req.user?._id
 
             if(!id) {
                 res.status(400).json({
@@ -74,7 +75,8 @@ export default class ReviewController {
 
     public postReview = async (req: Request, res: Response): Promise<void> => {
         try {
-            const { clienteId, productoId, rating } = req.body
+            const { productoId, rating } = req.body
+            const clienteId = req.user?._id
 
             if(!clienteId || !productoId || !rating) {
                 res.status(400).json({
@@ -84,7 +86,7 @@ export default class ReviewController {
             }
 
             const newReview: ICreateReview = {
-                clienteId,
+                clienteId = new Types.ObjectId(clienteId),
                 productoId,
                 rating
             }
