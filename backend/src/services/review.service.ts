@@ -27,13 +27,16 @@ export default class ReviewService {
     }
 
     public async createReview(review: ICreateReviewDto): Promise<IReview> {
-        const newReview = await this.reviewRepository.create(review)
-
+        
         const reviews = await (this.reviewRepository as ReviewRepository).findMany({productoId: review.productoId})
 
-        const rating = reviews.reduce((sumaRatings,r) => sumaRatings + r.rating, 0) / reviews.length
+        if(reviews.find(r => r.clienteId.equals(review.clienteId))) throw new Error('Producto ya rankeado')
 
-        await this.productoRepository.update(review.productoId.toString(),{rating, totalReviews: reviews.length})
+        const newReview = await this.reviewRepository.create(review)
+
+        const newRating = (reviews.reduce((sumaRatings,r) => sumaRatings + r.rating, 0) + review.rating) / (reviews.length + 1)
+
+        await this.productoRepository.update(review.productoId.toString(),{rating: newRating, totalReviews: reviews.length + 1})
 
         return newReview
     }
