@@ -12,7 +12,7 @@ const app = express()
 
 // middlewares
 app.use(cors({
-    origin: CLIENT_URL,
+    origin: [CLIENT_URL, 'http//localhost:5500'],
     methods: ['GET','POST','PUT','DELETE'],
     allowedHeaders: ['Content-Type','Authorization']
 }))
