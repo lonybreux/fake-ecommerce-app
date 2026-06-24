@@ -13,5 +13,6 @@ const productoController = new ProductoController(productoService)
 
 router.get('/',productoController.getProductos)
 router.get('/:id',productoController.getProductoById)
+router.patch('/:id',productoController.patchProducto)
 
 export default router
