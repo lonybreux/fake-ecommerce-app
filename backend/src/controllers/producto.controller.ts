@@ -69,4 +69,42 @@ export default class ProductoController {
             return
         }
     }
+
+    public patchProducto = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { id } = req.params
+
+            if(!id) {
+                res.status(400).json({
+                    message: 'Id de producto requerido'
+                })
+                return
+            }
+
+            const producto = await this.productoService.updateProductoById(id as string, req.body)
+
+            const productoResponse: IResponseProductoDto = {
+                _id: producto._id,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                estado: producto.estado,
+                marca: producto.marca,
+                categoria: producto.categoria,
+                imagen: producto.imagen,
+                rating: producto.rating,
+                totalReviews: producto.totalReviews
+            }
+
+            res.json({
+                body: productoResponse
+            })
+            return
+
+        } catch(error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
 }

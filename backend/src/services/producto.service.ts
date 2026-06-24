@@ -17,13 +17,16 @@ export default class ProductoService {
         return producto
     }
 
-    public async updateProductoById(id: string, producto: Partial<IProducto>): Promise<IProducto | null> {
+    public async updateProductoById(id: string, producto: Partial<IProducto>): Promise<IProducto> {
         const productoExists = await this.repository.findById(id)
 
         if(!productoExists) throw new Error('El producto no existe')
         
-        return await this.repository.update(id,producto)
+        const productoUpdated = await this.repository.update(id,producto)
+
+        if(!productoUpdated) throw new Error('Error al actualizar el producto')
+
+        return productoUpdated
     }
-    
-    
+
 }
