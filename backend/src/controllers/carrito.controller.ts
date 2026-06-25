@@ -1,11 +1,10 @@
 import type { Request, Response } from "express";
-import type ProductoService from "../services/producto.service.js";
 import type CarritoService from "../services/carrito.service.js";
 
 
 export default class CarritoController {
 
-    constructor(private carritoService: CarritoService, private productoService: ProductoService){}
+    constructor(private carritoService: CarritoService){}
 
     public getCarritos = async (_req: Request, res: Response): Promise<void> => {
         try {
@@ -23,7 +22,7 @@ export default class CarritoController {
         }
     }
 
-    public getCarritoById = async (req: Request, res: Response): Promise<void> => {
+    public getCarritoByIdCliente = async (req: Request, res: Response): Promise<void> => {
         try {
 
             const id = req.user?._id
@@ -70,9 +69,7 @@ export default class CarritoController {
                 return 
             }
 
-            const producto = await this.productoService.findProductoById(productoId)
-
-            const carritoUpdated = await this.carritoService.agregarProducto(id, cantidad, producto)
+            const carritoUpdated = await this.carritoService.agregarProducto(id, cantidad, productoId)
 
             res.json({
                 body: carritoUpdated
@@ -113,7 +110,7 @@ export default class CarritoController {
                 message: 'Producto eliminado del carrito correctamente'
             })
             return
-            
+
         } catch(error) {
             res.status(500).json({
                  message: error instanceof Error ? error.message : 'Internal server error'
