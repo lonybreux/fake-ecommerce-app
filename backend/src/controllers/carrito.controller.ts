@@ -62,14 +62,14 @@ export default class CarritoController {
 
             const { productoId, cantidad } = req.body
 
-            if(!productoId || !cantidad) {
+            if(!productoId || !cantidad || cantidad <= 0) {
                 res.status(400).json({
                     message: 'todos los campos son requeridos'
                 })
                 return 
             }
 
-            const carritoUpdated = await this.carritoService.agregarProducto(id, cantidad, productoId)
+            const carritoUpdated = await this.carritoService.agregarProducto(id, Number(cantidad), productoId)
 
             res.json({
                 body: carritoUpdated
