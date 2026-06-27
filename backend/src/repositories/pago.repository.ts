@@ -12,6 +12,10 @@ export default class PagoRepository implements IRepository<IPago> {
     public async findOne(entity: Partial<IPago>): Promise<IPago | null> {
         return await PagoModel.findOne(entity)
     }
+    public async findMany(entity: Partial<IPago>): Promise<IPago[]> {
+        return await PagoModel.find(entity)
+    }
+
     public async create(entity: Partial<IPago>): Promise<IPago> {
         return await PagoModel.create(entity)
     }
