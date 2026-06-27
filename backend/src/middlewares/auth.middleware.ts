@@ -15,7 +15,7 @@ const verificarToken = (req: Request, res: Response, next: NextFunction): void =
     }
 
     try {
-        const decoded = jwt.verify(token,JWT_SECRET) as {_id: string} & JwtPayload
+        const decoded = jwt.verify(token,JWT_SECRET) as {_id: string, rol: 'cliente' | 'admin'} & JwtPayload
         req.user = decoded
         console.log(decoded)
         next()

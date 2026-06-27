@@ -58,6 +58,7 @@ export default class CarritoService {
         } else {
 
             const productoEnCarrito = carritoExists.productos.find(p => p.productoId.equals(productoId))
+            
 
             if(productoEnCarrito) {
                 productoEnCarrito.cantidad += cantidad

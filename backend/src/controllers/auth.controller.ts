@@ -34,7 +34,8 @@ export default class AuthController {
                 nombre: cliente.nombre,
                 apellido: cliente.apellido,
                 email: cliente.email,
-                estado: cliente.estado
+                estado: cliente.estado,
+                rol: cliente.rol
             }
 
             res.status(201).json({
@@ -77,14 +78,15 @@ export default class AuthController {
                 return
             }
 
-            const token = jwt.sign({_id: clienteExists._id},JWT_SECRET,{expiresIn: '2h'})
+            const token = jwt.sign({_id: clienteExists._id, rol: clienteExists.rol},JWT_SECRET,{expiresIn: '2h'})
 
             const clienteResponse: IResponseClienteDto = {
                 _id: clienteExists._id,
                 nombre: clienteExists.nombre,
                 apellido: clienteExists.apellido,
                 email: clienteExists.email,
-                estado: clienteExists.estado
+                estado: clienteExists.estado,
+                rol: clienteExists.rol
             }
 
             res.json({

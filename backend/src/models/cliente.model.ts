@@ -1,13 +1,15 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
 
-type estado = 'activo' | 'no activo'
+type Estado = 'activo' | 'no activo'
+type Rol = 'cliente' | 'admin'
 
 export interface ICliente extends Document {
     nombre: string
     apellido: string
     email: string
     contrasena: string
-    estado: estado
+    estado: Estado
+    rol: Rol
 }
 
 // dto para la respuesta del servidor
@@ -16,7 +18,8 @@ export interface IResponseClienteDto {
     nombre: string
     apellido: string
     email: string
-    estado: estado
+    estado: Estado
+    rol: Rol
 }
 
 // dto para la creación de un cliente
@@ -32,7 +35,8 @@ const clienteSchema = new Schema<ICliente>({
     apellido: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     contrasena: {type: String, required: true},
-    estado: {type: String, enum: ['activo','no activo'], default: 'activo'}
+    estado: {type: String, enum: ['activo','no activo'], default: 'activo'},
+    rol: {type: String, enum: ['cliente','admin'], default: 'cliente'}
     
 }, {timestamps: true})
 
