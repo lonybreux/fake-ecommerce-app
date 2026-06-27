@@ -1,6 +1,6 @@
 import { model, Schema, Types, type Document } from "mongoose";
 
-type MetodoPago = 'tarjeta' | 'paypal' | 'transferencia'
+export type MetodoPago = 'tarjeta' | 'paypal' | 'transferencia'
 
 export interface IPago extends Document {
     pedidoId: Types.ObjectId
