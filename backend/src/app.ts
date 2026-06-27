@@ -9,6 +9,7 @@ import reviewRouter from './routes/review.routes.js'
 import comentarioRouter from './routes/comentario.routes.js'
 import carritoRouter from './routes/carrito.routes.js'
 import pedidoRouter from './routes/pedido.routes.js'
+import pagoRouter from './routes/pago.routes.js'
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use('/api/reviews', reviewRouter)
 app.use('/api/comentarios',comentarioRouter)
 app.use('/api/carrito',carritoRouter)
 app.use('/api/pedidos',pedidoRouter)
+app.use('/api/pagos',pagoRouter)
 
 app.use((_req,res) => {
    res.status(404).json({

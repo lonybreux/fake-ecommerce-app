@@ -90,6 +90,7 @@ export default class PagoController {
             res.status(500).json({
                 message: error instanceof Error ? error.message : 'Internal server error'
             })
+            return
         }
     }
 }
