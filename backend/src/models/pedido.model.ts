@@ -1,6 +1,6 @@
 import { model, Schema, Types, type Document } from "mongoose";
 
-type EstadoPedido = 'pendiente' | 'enviado' | 'entregado' | 'cancelado'
+export type EstadoPedido = 'pendiente' | 'enviado' | 'entregado' | 'cancelado'
 
 export interface IPedido extends Document {
     clienteId: Types.ObjectId
