@@ -14,6 +14,10 @@ export default class PedidoRepository implements IRepository<IPedido> {
     public async findOne(entity: Partial<IPedido>): Promise<IPedido | null> {
         return await PedidoModel.findOne(entity)
     }
+    public async findMany(entity: Partial<IPedido>): Promise<IPedido[]> {
+        return await PedidoModel.find(entity)
+    }
+
     public async create(entity: Partial<IPedido>): Promise<IPedido> {
         return await PedidoModel.create(entity)
     }
