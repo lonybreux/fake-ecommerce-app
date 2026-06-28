@@ -5,7 +5,7 @@ export default class EnvioController {
 
     constructor(private envioService: EnvioService){}
 
-    public getEnvios = async (req: Request, res: Response):Promise<void> => {
+    public getEnvios = async (_req: Request, res: Response):Promise<void> => {
         try {
             const envios = await this.envioService.findAllEnvios()
 
