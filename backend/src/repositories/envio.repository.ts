@@ -13,6 +13,9 @@ export default class EnvioRepository implements IRepository<IEnvio> {
     public async findOne(entity: Partial<IEnvio>): Promise<IEnvio | null> {
         return await EnvioModel.findOne(entity)
     }
+    public async findMany(entity: Partial<IEnvio>): Promise<IEnvio[]> {
+        return await EnvioModel.find({entity})
+    }
     public async create(entity: Partial<IEnvio>): Promise<IEnvio> {
         return await EnvioModel.create(entity)
     }
