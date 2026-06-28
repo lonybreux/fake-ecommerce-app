@@ -1,9 +1,6 @@
 import { Types } from "mongoose";
 import type { EstadoEnvio, ICreateEnvioDto, IEnvio } from "../models/envio.model.js";
 import type IRepository from "../repositories/IRepository.js";
-import type EnvioRepository from "../repositories/envio.repository.js";
-
-
 
 export default class EnvioService {
 
