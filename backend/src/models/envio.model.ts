@@ -1,6 +1,6 @@
 import { model, Schema, Types, type Document } from "mongoose";
 
-type EstadoEnvio = 'en espera' | 'enviado' | 'entregado'
+export type EstadoEnvio = 'en espera' | 'enviado' | 'entregado'
 
 export interface IEnvio extends Document {
     pedidoId: Types.ObjectId
