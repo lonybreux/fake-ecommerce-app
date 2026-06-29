@@ -13,7 +13,7 @@ const pagoRepository = new PagoRepository()
 const pagoService = new PagoService(pagoRepository, pedidoRepository)
 const pagoController = new PagoController(pagoService)
 
-router.get('/', verificarToken, verificarAdmin ,pagoController.getPagos)
+router.get('/admin', verificarToken, verificarAdmin ,pagoController.getPagos)
 router.get('/mis-pagos', verificarToken, pagoController.getPagosByClienteId)
 router.post('/:pedidoId', verificarToken, pagoController.postPago)
 
