@@ -1,11 +1,12 @@
 import { Types } from "mongoose";
 import type { EstadoEnvio, ICreateEnvioDto, IEnvio } from "../models/envio.model.js";
 import type IRepository from "../repositories/IRepository.js";
+import type { IPago } from "../models/pago.model.js";
 
 export default class EnvioService {
 
 
-    constructor(private envioRepository: IRepository<IEnvio>){}
+    constructor(private envioRepository: IRepository<IEnvio>, private pagoRepository: IRepository<IPago>){}
 
     public async findAllEnvios(): Promise<IEnvio[]> {
         return await this.envioRepository.findAll()
@@ -19,9 +20,17 @@ export default class EnvioService {
     }
 
     public async createEnvio(pedidoId: string, direccion: string): Promise<IEnvio> {
+
+        const pagoExists = await this.pagoRepository.findOne({pedidoId: new Types.ObjectId(pedidoId)})
+
+        if(!pagoExists) throw new Error('Este pedido no ha sido pagado')
+
+            
         const envioExists = await this.envioRepository.findOne({pedidoId: new Types.ObjectId(pedidoId)})
 
         if(envioExists) throw new Error('Ya existe un envio para este pedido')
+        
+        
         
         const fechaEntrega = new Date()
         fechaEntrega.setDate(fechaEntrega.getDate() + 7)
