@@ -13,7 +13,7 @@ const envioRepository = new EnvioRepository()
 const envioService = new EnvioService(envioRepository, pagoRepository)
 const envioController = new EnvioController(envioService)
 
-router.get('/', verificarToken, verificarAdmin ,envioController.getEnvios)
+router.get('/admin', verificarToken, verificarAdmin ,envioController.getEnvios)
 router.get('/:pedidoId', verificarToken, envioController.getEnvioByPedidoId)
 router.post('/:pedidoId',verificarToken ,envioController.postEnvio)
 router.patch('/:pedidoId', verificarToken, verificarAdmin, envioController.patchEnvio)
