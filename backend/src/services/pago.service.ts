@@ -21,6 +21,8 @@ export default class PagoService {
 
         if(!pedidoExists) throw new Error('El pedido no existe')
         if(!pedidoExists.clienteId.equals(clienteId)) throw new Error('Este pedido no pertenece a este cliente')
+        if(pedidoExists.estado !=='pendiente') throw new Error('Este pedido no puede ser pagado')
+
 
         const pago: ICreatePagoDto = {
             pedidoId: pedidoExists._id,
@@ -28,6 +30,8 @@ export default class PagoService {
             monto: pedidoExists.total,
             metodoPago
         }
+
+        await this.pedidoRepository.update(pedidoExists._id.toString(), {estado: 'enviado'})
 
         return await this.pagoRepository.create(pago)
     }
