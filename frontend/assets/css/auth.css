@@ -1,0 +1,209 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+     font-family: 'Inter', sans-serif;
+}
+
+#info-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #cd0f2e;
+    height: 100%;
+    width: 50%;
+    padding: 35px 0 0 35px;
+    color: white;
+    font-family: 'Inter', sans-serif ;
+}
+
+#info-div h1 {
+    margin-top: 200px;
+    margin-bottom: 0;
+    line-height: 1.2;
+    font-size: 40px;
+    font-weight: bold;
+    
+}
+
+#info-div p {
+    color: #f1f1f1;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+#brand {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#brand span {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#brand-icon {
+    height: 35px;
+    width: 35px;
+    border-radius: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(218, 56, 56);
+}
+
+#acceso-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    background-color: #f3f4f6
+}
+
+#acceso-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+}
+
+#options-div {
+    display: flex;
+    padding: 4px;
+    gap: 4px;
+    width: 100%;
+    justify-content: center;
+    background-color: #e5e7eb;
+    border-radius: 5px;
+}
+
+#options-div button {
+    border: none;
+    background: transparent;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#options-div button.options-active {
+    background: white;
+}
+
+#terminos-p {
+    text-align: center;
+}
+
+#iniciar-sesion-div h1{
+    font-size:24px;
+    margin-bottom: 0;
+}
+
+#iniciar-sesion-div p{
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+#iniciar-sesion-div form {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    background-color: white;
+    border-radius: 12px;
+    border: 3px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+#iniciar-sesion-div form button {
+    height: 35px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #cd0f2e;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    border: 1px solid #d1d5db;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#iniciar-sesion-div p span{
+    color: #cd0f2e;
+    max-width: 100%;
+}
+
+#iniciar-sesion-div form div {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    gap: 4px;
+}
+
+#iniciar-sesion-div form div input {
+    height: 35px;
+    width: 100%;
+    background-color: #f9fafb;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    padding: 10px;
+}
+
+#crear-cuenta-div h1 {
+    font-size:24px;
+    margin-bottom: 0;
+}
+
+#crear-cuenta-div p {
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+#crear-cuenta-div form {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    background-color: white;
+    border-radius: 12px;
+    border: 3px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+#crear-cuenta-div form div {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    gap: 4px;
+}
+
+#crear-cuenta-div form div input {
+    height: 35px;
+    width: 100%;
+    background-color: #f9fafb;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    padding: 10px;
+}
+
+#crear-cuenta-div form button {
+    height: 35px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #cd0f2e;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    border: 1px solid #d1d5db;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+
+
+

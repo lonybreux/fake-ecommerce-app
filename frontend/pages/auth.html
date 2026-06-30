@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+    <script defer src="../assets/js/auth.js"></script>
+    <title>Accede a tu cuenta</title>
+</head>
+<body>
+
+   <div id="info-div">
+
+        <div id="brand">
+            <div id="brand-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span>ElectroSmart</span>
+        </div>
+
+        <h1>Tecnología que <br> transforma tu hogar</h1>
+        <p>Descubre electrodomésticos premium con <br> diseño, eficiencia y precios que no encontrarás <br> en otro lugar.</p>
+
+   </div>
+
+   <div id="acceso-div">
+
+        <div id="acceso-card">
+
+            <div id="options-div">
+                <button id="iniciar-sesion-tab" class="options-active">Iniciar sesión</button>
+                <button id="crear-cuenta-tab">Crear cuenta</button>
+            </div>
+
+            <div id="iniciar-sesion-div">
+                <h1>Bienvenido de nuevo</h1>
+                <p>Ingresa tus datos para acceder a tu cuenta</p>
+
+                <form id="iniciar-sesion-form">
+                    <div id="iniciar-sesion-email-div">
+                        <label for="iniciar-sesion-email">Correo electrónico</label>
+                        <input type="email" id="iniciar-sesion-email" name="email" placeholder="tu@email.com" required>
+                    </div>
+
+                    <div id="iniciar-sesion-password-div">
+                        <label for="iniciar-sesion-password">Contraseña</label>
+                        <input type="password" id="iniciar-sesion-password" name="contrasena" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" id="iniciar-sesion-btn">Iniciar sesión</button> 
+                </form>
+
+                <p id="terminos-p">Al continuar, aceptas nuestros <span>términos y politica de privacidad</span></p>
+            </div>
+
+            <div id="crear-cuenta-div" hidden>
+                <h1>Crea tu cuenta</h1>
+                <p>Regístrate y empieza a equipar tu hogar</p>
+
+                <form id="crear-cuenta-form">
+
+                    <div id="crear-cuenta-name-div">
+                        <label for="crear-cuenta-name">Nombre</label>
+                        <input type="text" id="crear-cuenta-name" name="nombre" placeholder="tu nombre" required>
+                    </div>
+
+                    <div id="crear-cuenta-lastName-div">
+                        <label for="crear-cuenta-lastName">Apellido</label>
+                        <input type="text" id="crear-cuenta-lastName" name="apellido" placeholder="tu apellido" required>
+                    </div>
+
+                    <div id="crear-cuenta-email-div">
+                        <label for="crear-cuenta-email">Correo electrónico</label>
+                        <input type="email" id="crear-cuenta-email" name="email"  placeholder="tu@email.com" required>
+                    </div>
+
+                    <div id="crear-cuenta-password-div">
+                        <label for="crear-cuenta-password">Contraseña</label>
+                        <input type="password" id="crear-cuenta-password" name="contrasena" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" id="crear-cuenta-btn">Crear cuenta</button>
+                </form>
+            </div>
+
+        </div>
+
+        
+
+   </div>
+  
+
+</body>
+</html>
