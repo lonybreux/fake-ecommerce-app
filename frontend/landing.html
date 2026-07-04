@@ -1,0 +1,120 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/landing.css">
+    <script defer src="./assets/js/landing.js"></script>
+    <title>ElectroSmart</title>
+</head>
+<body>
+
+    <header>
+
+        <div id="brand">
+            <a href="landing.html">
+                <div id="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span>ElectroSmart</span>
+            </a>
+            
+        </div>
+
+        <nav>
+            <ul>
+                <li id="categorias-li">
+                    <button id="categorias-btn">Categorias <i class="fa-solid fa-angle-down"></i></button>
+                    <ul class="dropdown">
+                        <li><a href="#">Refrigeradora</a></li>
+                        <li><a href="#">Lavado</a></li>
+                        <li><a href="#">Cocina</a></li>
+                        <li><a href="#">Hogar</a></li>
+                    </ul>
+                </li>
+                <li><a href="#catalogo-section">Destacados</a></li>
+                <li><a href="#comentarios-section">Comentarios</a></li>
+            </ul>
+        </nav>
+
+        <div id="buscador">
+            <input type="search" id="buscador-input" placeholder="Buscar producto">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <a href="./pages/auth.html" id="login-btn">
+            <i class="fa-solid fa-user"></i>Iniciar sesión
+        </a>
+        
+    </header>
+
+    <section id="hero">
+        
+        <div id="hero-info">
+
+            <div id="hero-badge">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Calidez y tecnología para tu hogar</span>
+            </div>
+
+            <h1>Electrodomésticos <br> que dan <span>vida</span> a tu <br> hogar</h1>
+            <p>Diseño natural, tonos cálidos y máxima eficiencia. <br>Equipa cada espacio con la tecnología que <br>mereces.</p>
+
+            <div id="hero-btns">
+                <a href="./pages/productos.html" id="hero-ver-productos-btn">
+                    Ver productos
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="./pages/auth.html" id="hero-crear-cuenta-btn">
+                    Crear cuenta
+                </a>
+            </div>
+            
+            
+        </div>
+
+        <div id="hero-img">
+            <img src="./assets/img/hero-electrodomesticos.png" alt="Electrodomesticos">
+        </div>
+
+        
+    </section>
+
+    <section id="catalogo-section">
+        <div id="catalogo-info-div">
+            <div id="catalogo-header">
+                <h2 class="titulo-lineas">Productos destacados</h2>
+                <p>Una selección de los favoritos de nuestros clientes</p>
+            </div>
+
+            <div id="productos-grid">
+
+            </div>
+        </div>
+    </section>
+
+    <section id="comentarios-section">
+        <div id="comentarios-info-div">
+            <div id="comentarios-header">
+                <h2 class="titulo-lineas">Comentarios de la comunidad</h2>
+                <p>Únete a la conversación y comparte tu experiencia</p>
+            </div>
+        </div>
+
+        <div id="comentarios-grid">
+
+        </div>
+    </section>
+
+    <footer>
+        <div id="footer-info-div">
+            <h2>Equipa tu hogar hoy mismo</h2>
+            <p>Crea tu cuenta y accede a ofertas exclusivas en electrodomésticos premium</p>
+            <a href="./pages/auth.html">Empezar ahora <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </footer>
+
+    
+</body>
+</html>
