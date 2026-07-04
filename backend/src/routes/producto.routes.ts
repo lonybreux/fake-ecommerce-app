@@ -14,6 +14,7 @@ const productoService = new ProductoService(productoRepository)
 const productoController = new ProductoController(productoService)
 
 router.get('/',productoController.getProductos)
+router.get('/:nombre',productoController.getProductoByNombre)
 router.get('/:id',productoController.getProductoById)
 router.patch('/admin/:id',verificarToken, verificarAdmin, productoController.patchProducto)
 
