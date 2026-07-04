@@ -55,6 +55,7 @@ iniciarSesionForm.addEventListener('submit', async (e) => {
         if(!res.ok) throw new Error(data.message)
 
         localStorage.setItem('token',data.token)
+        window.location.href = '/frontend/landing.html'
 
     } catch(error) {
         console.log(error.message)

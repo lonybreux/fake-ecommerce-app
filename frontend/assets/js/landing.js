@@ -1,3 +1,24 @@
+async function getTokenStatus() {
+
+    const token = localStorage.getItem('token')
+
+    if(!token) return
+
+    const res = await fetch('http://localhost:3000/api/auth/status', {
+        method: 'GET',
+        headers: {'authorization': `Bearer ${token}`}
+    })
+
+
+    if(res.status === 403) {
+        localStorage.removeItem('token')
+        return
+    }
+}
+
+getTokenStatus()
+
+
 function renderizarCards(productos) {
 
     const productosGrid = document.getElementById('productos-grid')
@@ -42,6 +63,14 @@ function renderizarCards(productos) {
         const botonElement = document.createElement('button')
         botonElement.textContent = 'Comprar'
         botonElement.classList.add('card-comprar-btn')
+        botonElement.addEventListener('click', e => {
+            e.preventDefault()
+            console.log('click')
+            console.log(localStorage.getItem('token'))
+
+            if(!localStorage.getItem('token')) window.location.href = '/frontend/pages/auth.html'
+            else window.location.href = '/frontend/pages/productos.html'
+        })
 
         infoElement.classList.add('card-info')
         infoElement.appendChild(categoriaElement)
