@@ -70,6 +70,44 @@ export default class ProductoController {
         }
     }
 
+    public getProductoByNombre = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const {nombre} = req.params
+
+            if(!nombre) {
+                res.status(400).json({
+                    message: 'nombre de producto requerido'
+                })
+                return
+            }
+
+            const producto = await this.productoService.findProductoByNombre(nombre as string)
+
+            const productoResponse: IResponseProductoDto = {
+                _id: producto._id,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                estado: producto.estado,
+                marca: producto.marca,
+                categoria: producto.categoria,
+                imagen: producto.imagen,
+                rating: producto.rating,
+                totalReviews: producto.totalReviews
+            }
+
+            res.json({
+                body: productoResponse
+            })
+            return
+
+        } catch(error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
+
     public patchProducto = async (req: Request, res: Response): Promise<void> => {
         try {
             const { id } = req.params
