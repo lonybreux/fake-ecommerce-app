@@ -21,6 +21,7 @@ const verificarToken = (req: Request, res: Response, next: NextFunction): void =
         next()
     } catch(error) {
         res.status(403).json({
+            authenticated: false,
             message: error instanceof Error ? error.message : 'token invalido'
         })
     }
