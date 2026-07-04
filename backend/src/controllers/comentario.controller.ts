@@ -1,8 +1,7 @@
 import { Types } from "mongoose";
-import type { ICreateComentarioDto } from "../models/comentario.model.js";
+import type { ICreateComentarioDto, IResponseComentarioDto } from "../models/comentario.model.js";
 import type ComentarioService from "../services/comentario.service.js";
 import type { Request, Response } from "express";
-
 
 export default class ComentarioController {
 
@@ -12,8 +11,17 @@ export default class ComentarioController {
         try {
             const comentarios = await this.comentarioService.findAllComentarios()
 
+            const comentariosResponse: IResponseComentarioDto[] = comentarios.map(c => ({
+                cliente: {
+                    nombre: (c.clienteId as any).nombre,
+                    apellido: (c.clienteId as any).apellido
+                },
+                contenido: c.contenido,
+                createdAt: c.createdAt
+            }))
+
             res.json({
-                body: comentarios
+                body: comentariosResponse
             })
             return
         } catch(error) {

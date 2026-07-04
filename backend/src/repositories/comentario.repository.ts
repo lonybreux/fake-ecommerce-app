@@ -4,7 +4,7 @@ import type IRepository from "./IRepository.js";
 
 export default class ComentarioRepository implements IRepository<IComentario> {
     public async findAll(): Promise<IComentario[]> {
-        return await ComentarioModel.find()
+        return await ComentarioModel.find().populate('clienteId','nombre apellido')
     }
     public async findById(id: string): Promise<IComentario | null> {
         return await ComentarioModel.findById(id)
