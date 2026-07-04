@@ -17,6 +17,14 @@ export default class ProductoService {
         return producto
     }
 
+    public async findProductoByNombre(nombre: string): Promise<IProducto> {
+        const producto = await this.repository.findOne({nombre})
+
+        if(!producto) throw new Error('El producto no existe')
+        
+        return producto
+    }
+
     public async updateProductoById(id: string, producto: Partial<IProducto>): Promise<IProducto> {
         const productoExists = await this.repository.findById(id)
 
