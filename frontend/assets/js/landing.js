@@ -218,6 +218,6 @@ busquedaInput.addEventListener('input', (e) => {
     timeout = setTimeout(() => {
         const termino = e.target.value.trim()
 
-        if(termino.length > 0) window.location.href = `../../pages/productos.html?busqueda=${termino}`
+        if(termino.length > 0) window.location.href = `./pages/productos.html?busqueda=${termino}`
     }, 500)
 })

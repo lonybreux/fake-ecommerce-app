@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/productos.css">
+    <title>Productos - ElectroSmart</title>
+</head>
+<body>
+
+    <!-- Mismo header que landing.html -->
+    <header>
+
+        <div id="brand">
+            <a href="../landing.html">
+                <div id="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span>ElectroSmart</span>
+            </a>
+        </div>
+
+        
+
+        <!-- productos.js escucha el "input" de este buscador para filtrar en vivo -->
+        
+        <div id="buscador">
+            <input type="search" id="buscador-input" placeholder="Buscar producto">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <a href="./auth.html" id="login-btn">
+            <i class="fa-solid fa-user"></i>Iniciar sesión
+        </a>
+
+    </header>
+
+    <main id="productos-main">
+
+        <div id="productos-header">
+            <div id="productos-titulo-div">
+                <h1>Electrodomésticos</h1> 
+                <p id="productos-count">Cargando productos...</p>
+            </div>
+
+            <div id="orden-div">
+                <select id="orden-select">
+                    <option value="relevancia">Relevancia</option>
+                    <option value="precio-asc">Precio: menor a mayor</option>
+                    <option value="precio-desc">Precio: mayor a menor</option>
+                    <option value="rating-desc">Mejor valorados</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="productos-layout">
+            <!-- Sidebar de filtros. Los divs de categoria-filtros y marca-filtros
+                empiezan vacíos, productos.js los llena con checkboxes según
+                los productos reales que devuelva la API -->
+            <aside id="filtros-aside">
+
+                <div class="filtro-grupo">
+                    <h3>Categoría</h3>
+                    <div id="categoria-filtros" class="filtro-opciones"></div>
+                </div>
+
+                <div class="filtro-grupo">
+                    <h3>Marca</h3>
+                    <div id="marca-filtros" class="filtro-opciones"></div>
+                </div>
+
+                <!-- min/max del slider se calculan en JS según el precio real más alto -->
+                <div class="filtro-grupo">
+                    <div class="filtro-precio-header">
+                        <h3>Precio</h3>
+                        <span id="precio-label">S/0 - S/0</span>
+                    </div>
+                    <input type="range" id="precio-slider" min="0" max="0" value="0">
+                </div>
+
+                <!-- data-rating es lo que lee productos.js al hacer click en cada botón -->
+                <div class="filtro-grupo">
+                    <h3>Valoración mínima</h3>
+                    <div id="rating-filtros" class="filtro-pills">
+                        <button type="button" class="rating-pill rating-pill-active" data-rating="0">Todas</button>
+                        <button type="button" class="rating-pill" data-rating="3">3★+</button>
+                        <button type="button" class="rating-pill" data-rating="4">4★+</button>
+                        <button type="button" class="rating-pill" data-rating="4.5">4.5★+</button>
+                    </div>
+                </div>
+
+                <div class="filtro-grupo">
+                    <label id="stock-label-check">
+                        <input type="checkbox" id="stock-checkbox">
+                        Solo con stock
+                    </label>
+                </div>
+
+            </aside>
+
+            <!-- productos-grid empieza vacío: productos.js crea una tarjeta
+                por cada producto filtrado. productos-vacio se muestra solo
+                cuando ningún producto cumple los filtros elegidos -->
+            <section id="productos-grid-section">
+                <div id="productos-grid"></div>
+                <p id="productos-vacio" hidden>No se encontraron productos con esos filtros.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Acá se van agregando los mensajitos flotantes de éxito O error -->
+    <div id="toast-container"></div>
+    <script src="../assets/js/productos.js"></script>
+</body>
+</html>
