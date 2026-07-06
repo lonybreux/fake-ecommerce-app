@@ -5,7 +5,7 @@ import { CarritoModel } from "../models/carrito.model.js";
 export default class CarritoRepository implements IRepository<ICarrito> {
 
     public async findAll(): Promise<ICarrito[]> {
-       return await CarritoModel.find()
+       return await CarritoModel.find().populate('productoId')
     }
     public async findById(id: string): Promise<ICarrito | null> {
        return await CarritoModel.findById(id)
