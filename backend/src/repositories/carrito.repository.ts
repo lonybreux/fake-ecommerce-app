@@ -5,13 +5,13 @@ import { CarritoModel } from "../models/carrito.model.js";
 export default class CarritoRepository implements IRepository<ICarrito> {
 
     public async findAll(): Promise<ICarrito[]> {
-       return await CarritoModel.find().populate('productoId')
+       return await CarritoModel.find().populate('productos.productoId','nombre precio estado marca categoria imagen rating totalReviews')
     }
     public async findById(id: string): Promise<ICarrito | null> {
        return await CarritoModel.findById(id)
     }
     public async findOne(entity: Partial<ICarrito>): Promise<ICarrito | null> {
-       return await CarritoModel.findOne(entity)
+       return await CarritoModel.findOne(entity).populate('productos.productoId','nombre precio estado marca categoria imagen rating totalReviews')
     }
     public async create(entity: Partial<ICarrito>): Promise<ICarrito> {
         return await CarritoModel.create(entity)
