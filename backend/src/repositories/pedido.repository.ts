@@ -15,7 +15,7 @@ export default class PedidoRepository implements IRepository<IPedido> {
         return await PedidoModel.findOne(entity)
     }
     public async findMany(entity: Partial<IPedido>): Promise<IPedido[]> {
-        return await PedidoModel.find(entity)
+        return await PedidoModel.find(entity).populate('productos.productoId','nombre imagen marca categoria')
     }
 
     public async create(entity: Partial<IPedido>): Promise<IPedido> {

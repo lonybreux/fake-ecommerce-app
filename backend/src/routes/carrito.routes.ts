@@ -18,6 +18,7 @@ const router = Router()
 router.get('/admin',verificarToken, verificarAdmin ,carritoController.getCarritos)
 router.get('/', verificarToken, carritoController.getCarritoByIdCliente)
 router.post('/', verificarToken, carritoController.postProductoCarrito)
+router.patch('/:productoId', verificarToken, carritoController.patchProductoCarrito)
 router.delete('/:productoId',verificarToken, carritoController.deleteProductoCarrito)
 
 

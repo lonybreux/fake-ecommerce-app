@@ -3,6 +3,7 @@ import PedidoController from "../controllers/pedido.controller.js";
 import PedidoService from "../services/pedido.service.js";
 import PedidoRepository from "../repositories/pedido.repository.js";
 import CarritoRepository from "../repositories/carrito.repository.js";
+import ProductoRepository from "../repositories/producto.repository.js";
 import verificarToken from "../middlewares/auth.middleware.js";
 import verificarAdmin from "../middlewares/verifyAdmin.middleware.js";
 
@@ -11,7 +12,8 @@ const router = Router()
 
 const carritoRepository = new CarritoRepository()
 const pedidoRepository = new PedidoRepository()
-const pedidoService = new PedidoService(pedidoRepository,carritoRepository)
+const productoRepository = new ProductoRepository()
+const pedidoService = new PedidoService(pedidoRepository,carritoRepository,productoRepository)
 const pedidoController = new PedidoController(pedidoService)
 
 router.get('/admin', verificarToken, verificarAdmin, pedidoController.getPedidos)

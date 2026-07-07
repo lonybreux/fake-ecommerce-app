@@ -1,10 +1,76 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil - ElectroSmart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/perfil.css">
+    <title>Mi perfil - ElectroSmart</title>
 </head>
 <body>
-    
+
+    <header>
+
+        <div id="brand">
+            <a href="../landing.html">
+                <div id="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span>ElectroSmart</span>
+            </a>
+        </div>
+
+        <div id="header-acciones">
+            <a href="./carrito.html" id="carrito-header-btn" title="Carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            <a href="./productos.html" id="volver-catalogo-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Volver al catálogo
+            </a>
+        </div>
+
+    </header>
+
+    <main id="perfil-main">
+
+        <div id="perfil-card">
+            <div id="perfil-card-info">
+                <div id="perfil-avatar"><p id="perfil-iniciales"></p></div>
+                <div>
+                    <h2 id="perfil-nombre-completo"></h2>
+                    <p id="perfil-email"></p>
+                </div>
+            </div>
+
+            <button id="cerrar-sesion-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Cerrar sesión
+            </button>
+        </div>
+
+        <nav id="tabs-nav">
+            <button type="button" class="tab-btn" data-tab="pedidos">
+                <i class="fa-solid fa-box"></i>Mis pedidos
+            </button>
+            <button type="button" class="tab-btn" data-tab="envios">
+                <i class="fa-solid fa-truck"></i>Mis envíos
+            </button>
+            <button type="button" class="tab-btn" data-tab="pagos">
+                <i class="fa-solid fa-credit-card"></i>Mis pagos
+            </button>
+        </nav>
+
+        <section id="tab-content">
+            <div id="pedidos-panel" class="tab-panel"></div>
+            <div id="envios-panel" class="tab-panel" hidden></div>
+            <div id="pagos-panel" class="tab-panel" hidden></div>
+        </section>
+
+    </main>
+
+    <div id="toast-container"></div>
+    <script src="../assets/js/perfil.js"></script>
 </body>
 </html>

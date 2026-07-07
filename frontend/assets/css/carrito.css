@@ -372,6 +372,20 @@ nav ul li a {
     font-size: 16px;
 }
 
+.item-stock {
+    font-size: 11px;
+    color: #16a34a;
+    margin: 4px 0 0 0;
+}
+
+.item-stock-bajo {
+    color: #d97706;
+}
+
+.item-stock-agotado {
+    color: #cd0f2e;
+}
+
 .numeros-div {
     display: flex;
     align-items: center;
@@ -406,6 +420,15 @@ nav ul li a {
 .mas-menos-div button:hover {
     background-color: #f3f4f6;
     border-radius: 8px;
+}
+
+.mas-menos-div button:disabled {
+    cursor: not-allowed;
+    color: #c0c4cc;
+}
+
+.mas-menos-div button:disabled:hover {
+    background-color: transparent;
 }
 
 .precio-eliminar-div {
@@ -506,4 +529,39 @@ nav ul li a {
 #perfil-lista li button:hover {
     background-color: #f3f4f6;
     border-radius: 8px;
+}
+
+/* toasts */
+
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 200;
+}
+
+.toast {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: toast-in 0.2s ease;
+    max-width: 320px;
+}
+
+.toast-exito {
+    background-color: #16a34a;
+}
+
+.toast-error {
+    background-color: #cd0f2e;
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

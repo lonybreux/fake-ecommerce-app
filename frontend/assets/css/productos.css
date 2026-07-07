@@ -63,6 +63,24 @@ header {
     transition: background-color 0.2s ease;
 }
 
+#carrito-header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid #e2e8f0;
+}
+
+#carrito-header-btn:hover {
+    background-color: #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
 #brand a {
     display: flex;
     align-items: center;
@@ -413,6 +431,22 @@ nav ul li a {
 .card-reviews-count {
     color: #9ca3af;
     margin-left: 2px;
+}
+
+.card-stock {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #16a34a;
+}
+
+.card-stock-bajo {
+    color: #d97706;
+}
+
+.card-stock-agotado {
+    color: #cd0f2e;
 }
 
 .card-precio-btn {

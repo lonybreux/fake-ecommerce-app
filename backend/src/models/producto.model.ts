@@ -6,6 +6,7 @@ export interface IProducto extends Document {
     nombre: string
     precio: number
     estado: Estado
+    stock: number
     marca: {
         nombre: string
         imagen: string
@@ -22,6 +23,7 @@ export interface IResponseProductoDto {
     nombre: string
     precio: number
     estado: Estado
+    stock: number
     marca: {
         nombre: string
         imagen: string
@@ -36,6 +38,7 @@ const productoSchema = new Schema<IProducto>({
     nombre: {type: String, required: true},
     precio: {type: Number, required: true},
     estado: {type: String, enum: ['disponible','no disponible'], default: 'disponible'},
+    stock: {type: Number, required: true, min: 0, default: 0},
     marca: {nombre: {type: String, required: true}, imagen: {type: String, required: true}},
     categoria: {type: String, required: true},
     imagen: {type: String, required: true},

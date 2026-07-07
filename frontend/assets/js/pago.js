@@ -162,7 +162,7 @@ pagarBtn.addEventListener('click', (e) => {
 const verMisPedidosBtn = document.getElementById('ver-mis-pedidos-btn')
 verMisPedidosBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    window.location.href = '/frontend/pages/perfil.html'
+    window.location.href = '/frontend/pages/perfil.html?tab=pedidos'
 })
 
 const seguirComprandoBtn = document.getElementById('exito-seguir-comprando-btn')

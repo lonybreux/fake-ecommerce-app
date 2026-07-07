@@ -257,13 +257,33 @@ function crearImagenProducto(producto) {
 }
 
 
-// Arma la tarjeta completa de un producto: badge de "Sin stock" (si aplica), imagen, marca/categoría, nombre, estrellas, precio y botón "Añadir"
+// Arma el textito de stock de una tarjeta: "Sin stock" (rojo) si no hay,
+// "Últimas X unidades" (naranja) si queda poco, o "X unidades disponibles" si hay de sobra.
+function crearStockInfo(producto) {
+    const span = document.createElement('span')
+    span.classList.add('card-stock')
+
+    if (producto.estado !== 'disponible' || producto.stock <= 0) {
+        span.classList.add('card-stock-agotado')
+        span.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>Sin stock'
+    } else if (producto.stock <= 5) {
+        span.classList.add('card-stock-bajo')
+        span.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>Últimas ${producto.stock} unidades`
+    } else {
+        span.innerHTML = `<i class="fa-solid fa-box"></i>${producto.stock} unidades disponibles`
+    }
+
+    return span
+}
+
+
+// Arma la tarjeta completa de un producto: badge de "Sin stock" (si aplica), imagen, marca/categoría, nombre, estrellas, stock, precio y botón "Añadir"
 // (deshabilitado si no hay stock).
 function crearCardProducto(producto) {
     const card = document.createElement('div')
     card.classList.add('producto-card')
 
-    if (producto.estado !== 'disponible') {
+    if (producto.estado !== 'disponible' || producto.stock <= 0) {
         const badge = document.createElement('span')
         badge.classList.add('badge-sin-stock')
         badge.textContent = 'Sin stock'
@@ -293,7 +313,7 @@ function crearCardProducto(producto) {
     btn.classList.add('card-add-btn')
     btn.textContent = 'Añadir'
 
-    if (producto.estado !== 'disponible') {
+    if (producto.estado !== 'disponible' || producto.stock <= 0) {
         btn.disabled = true
         btn.classList.add('card-add-btn-disabled')
     } else {
@@ -309,6 +329,7 @@ function crearCardProducto(producto) {
     infoDiv.appendChild(marcaCategoria)
     infoDiv.appendChild(nombre)
     infoDiv.appendChild(crearEstrellas(producto))
+    infoDiv.appendChild(crearStockInfo(producto))
     infoDiv.appendChild(precioBtnDiv)
 
     card.appendChild(infoDiv)

@@ -42,6 +42,20 @@ async function getTokenStatus() {
 console.log('token', localStorage.getItem('token'))
 getTokenStatus().then()
 
+const toastContainer = document.getElementById('toast-container')
+
+// Crea un mensaje flotante (toast) abajo a la derecha, verde si es éxito
+// o rojo si es error, y lo hace desaparecer solo después de 2.5 segundos.
+function mostrarToast(mensaje, tipo = 'exito') {
+    const toast = document.createElement('div')
+    toast.classList.add('toast', tipo === 'error' ? 'toast-error' : 'toast-exito')
+    toast.textContent = mensaje
+
+    toastContainer.appendChild(toast)
+
+    setTimeout(() => toast.remove(), 2500)
+}
+
 function renderizarProductos(productos) {
 
     const carritoGrid = document.getElementById('carrito-grid')
@@ -75,19 +89,35 @@ function renderizarProductos(productos) {
         nombreElement.textContent = `${nombre}`
         infoDiv.appendChild(nombreElement)
 
+        const stockDisponible = p.productoId.stock
+        const stockElement = document.createElement('p')
+        stockElement.classList.add('item-stock')
+        if (stockDisponible <= 0) {
+            stockElement.classList.add('item-stock-agotado')
+            stockElement.textContent = 'Sin stock'
+        } else if (p.cantidad >= stockDisponible) {
+            stockElement.classList.add('item-stock-bajo')
+            stockElement.textContent = `Quedan ${stockDisponible} disponibles (máximo alcanzado)`
+        } else {
+            stockElement.textContent = `${stockDisponible} unidades disponibles`
+        }
+        infoDiv.appendChild(stockElement)
+
         const numerosDiv = document.createElement('div')
         numerosDiv.classList.add('numeros-div')
         const masmenosDiv = document.createElement('div')
         masmenosDiv.classList.add('mas-menos-div')
         const menosBtn = document.createElement('button')
         menosBtn.id = 'menos-btn'
+        menosBtn.disabled = p.cantidad <= 1
 
-        menosBtn.addEventListener('click',e => {
-            const cantidadSpan = document.getElementById('cantidad-span')
-    
+        menosBtn.addEventListener('click', async (e) => {
+            const cantidadSpan = e.target.closest('.mas-menos-div').querySelector('.cantidad-span')
             const cantidad = Number(cantidadSpan.textContent)
 
-            if(cantidad > 1) cantidadSpan.textContent = cantidad - 1
+            if (cantidad <= 1) return
+
+            await actualizarCantidadCarrito(p.productoId._id, cantidad - 1)
         })
 
         menosBtn.innerHTML = '<i class="fa-solid fa-minus"></i>'
@@ -96,14 +126,18 @@ function renderizarProductos(productos) {
         cantidadSpan.textContent = p.cantidad
         const masBtn = document.createElement('button')
         masBtn.id = 'mas-btn'
+        masBtn.disabled = p.cantidad >= stockDisponible
 
-        masBtn.addEventListener('click',e => {
+        masBtn.addEventListener('click', async (e) => {
             const span = e.target.closest('.mas-menos-div').querySelector('.cantidad-span')
-            
             const cantidad = Number(span.textContent)
 
-            span.textContent = cantidad + 1
-            agregarUnidadCarrito(p.productoId._id)
+            if (cantidad >= stockDisponible) {
+                mostrarToast(`Solo quedan ${stockDisponible} unidades disponibles`, 'error')
+                return
+            }
+
+            await agregarUnidadCarrito(p.productoId._id)
         })
 
         masBtn.innerHTML = '<i class="fa-solid fa-plus"></i>'
@@ -221,12 +255,41 @@ async function agregarUnidadCarrito(productoId) {
             })
         })
 
-        if(!res.ok) throw new Error('Error al agregar')
-        
+        const data = await res.json()
+
+        if(!res.ok) throw new Error(data.message)
+
         await getCarrito()
 
     } catch(error) {
-        console.log(error.message)
+        mostrarToast(error.message, 'error')
+    }
+}
+
+
+// Fija la cantidad exacta de un producto en el carrito (usado por el botón "-").
+// El backend valida que no supere el stock disponible.
+async function actualizarCantidadCarrito(productoId, cantidad) {
+    try {
+        const token = window.localStorage.getItem('token')
+
+        const res = await fetch(`http://localhost:3000/api/carrito/${productoId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ cantidad })
+        })
+
+        const data = await res.json()
+
+        if (!res.ok) throw new Error(data.message)
+
+        await getCarrito()
+
+    } catch (error) {
+        mostrarToast(error.message, 'error')
     }
 }
 

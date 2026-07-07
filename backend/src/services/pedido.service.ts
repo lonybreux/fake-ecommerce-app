@@ -3,11 +3,12 @@ import type { IPedido, EstadoPedido } from "../models/pedido.model.js";
 import type IRepository from "../repositories/IRepository.js";
 import type PedidoRepository from "../repositories/pedido.repository.js";
 import type { ICarrito, ICarritoPopulado } from "../models/carrito.model.js";
+import type { IProducto } from "../models/producto.model.js";
 
 
 export default class PedidoService {
 
-    constructor(private pedidoRepository: IRepository<IPedido>, private carritoRepository: IRepository<ICarrito>){}
+    constructor(private pedidoRepository: IRepository<IPedido>, private carritoRepository: IRepository<ICarrito>, private productoRepository: IRepository<IProducto>){}
 
     public async findAllPedidos(): Promise<IPedido[]> {
         return await this.pedidoRepository.findAll()
@@ -21,15 +22,25 @@ export default class PedidoService {
         const carrito = await this.carritoRepository.findOne({clienteId: new Types.ObjectId(id)}) as ICarritoPopulado | null
 
         if(!carrito || carrito.productos.length === 0) throw new Error('El carrito está vacio')
-        
+
         let total = 0
         for(const p of carrito.productos) {
+            if(p.cantidad > p.productoId.stock) throw new Error(`No hay suficiente stock de ${p.productoId.nombre}`)
+
             total += p.productoId.precio * p.cantidad
-            
         }
 
+        const productosPedido = carrito.productos.map(p => ({
+            productoId: p.productoId._id,
+            cantidad: p.cantidad,
+            precioUnitario: p.productoId.precio
+        }))
 
-        const pedido = await this.pedidoRepository.create({clienteId: carrito.clienteId, total})
+        for(const p of carrito.productos) {
+            await this.productoRepository.update(p.productoId._id.toString(), {stock: p.productoId.stock - p.cantidad})
+        }
+
+        const pedido = await this.pedidoRepository.create({clienteId: carrito.clienteId, total, productos: productosPedido})
         await this.carritoRepository.update(carrito._id.toString(), {productos: []})
 
         return pedido

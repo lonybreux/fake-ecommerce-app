@@ -16,9 +16,15 @@ import envioRouter from './routes/envio.routes.js'
 const app = express()
 
 // middlewares
+const allowedOrigins = [
+    CLIENT_URL,
+    CLIENT_URL.replace('localhost', '127.0.0.1'),
+    CLIENT_URL.replace('127.0.0.1', 'localhost')
+]
+
 app.use(cors({
-    origin: [CLIENT_URL, 'http://localhost:5500'],
-    methods: ['GET','POST','PUT','DELETE'],
+    origin: allowedOrigins,
+    methods: ['GET','POST','PUT','PATCH','DELETE'],
     allowedHeaders: ['Content-Type','Authorization']
 }))
 app.use(morgan('dev'))

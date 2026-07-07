@@ -83,6 +83,42 @@ export default class CarritoController {
         }
     }
 
+    public patchProductoCarrito = async (req: Request, res: Response): Promise<void> => {
+        try {
+
+            const id = req.user?._id
+
+            if(!id) {
+                res.status(401).json({
+                    message: 'No autorizado'
+                })
+                return
+            }
+
+            const { productoId } = req.params
+            const { cantidad } = req.body
+
+            if(!productoId || !cantidad || cantidad <= 0) {
+                res.status(400).json({
+                    message: 'todos los campos son requeridos'
+                })
+                return
+            }
+
+            const carritoUpdated = await this.carritoService.actualizarCantidadProducto(id, productoId as string, Number(cantidad))
+
+            res.json({
+                body: carritoUpdated
+            })
+            return
+        } catch(error) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : 'Internal server error'
+            })
+            return
+        }
+    }
+
     public deleteProductoCarrito = async (req: Request, res:Response): Promise<void> => {
         try {
 
