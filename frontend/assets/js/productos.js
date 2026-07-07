@@ -269,7 +269,10 @@ function crearCardProducto(producto) {
         btn.disabled = true
         btn.classList.add('card-add-btn-disabled')
     } else {
-        btn.addEventListener('click', () => agregarAlCarrito(producto._id, btn))
+        btn.addEventListener('click', () => {
+        agregarAlCarrito(producto._id, btn) 
+        window.location.href = '/frontend/pages/carrito.html' 
+    })
     }
 
     precioBtnDiv.appendChild(precio)

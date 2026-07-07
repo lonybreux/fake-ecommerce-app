@@ -16,7 +16,9 @@ async function getTokenStatus() {
     }
 }
 
-getTokenStatus()
+console.log('token', localStorage.getItem('token'))
+
+getTokenStatus().then()
 
 
 function renderizarCards(productos) {
