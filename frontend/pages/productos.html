@@ -128,8 +128,31 @@
         </div>
     </main>
 
+    <div id="modal-rating" style="display: none;">
+        <div id="modal-rating-card">
+            <div id="modal-rating-header">
+                <h3>Calificar producto</h3>
+                <button id="modal-cerrar-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p id="modal-producto-nombre"></p>
+            <div id="estrellas-rating">
+                <i class="fa-regular fa-star" data-valor="1"></i>
+                <i class="fa-regular fa-star" data-valor="2"></i>
+                <i class="fa-regular fa-star" data-valor="3"></i>
+                <i class="fa-regular fa-star" data-valor="4"></i>
+                <i class="fa-regular fa-star" data-valor="5"></i>
+            </div>
+            <button id="modal-enviar-btn">Enviar calificación</button>
+        </div>
+    </div>
+
     <!-- Acá se van agregando los mensajitos flotantes de éxito O error -->
     <div id="toast-container"></div>
     <script src="../assets/js/productos.js"></script>
+
+    
+
 </body>
 </html>

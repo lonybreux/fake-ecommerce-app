@@ -1,5 +1,11 @@
 const API_URL = 'http://localhost:3000/api'
-
+const modalRating = document.getElementById('modal-rating')
+const modalCerrarBtn = document.getElementById('modal-cerrar-btn')
+const modalEnviarBtn = document.getElementById('modal-enviar-btn')
+const modalProductoNombre = document.getElementById('modal-producto-nombre')
+const estrellasRating = document.querySelectorAll('#estrellas-rating i')
+let productoIdSeleccionado = null
+let ratingSeleccionado = 0
 // Guarda TODOS los productos tal y como vienen de la API, sin filtrar.
 // Es la "fuente de verdad": los filtros nunca la modifican, solo la leen.
 let productosOriginales = []
@@ -323,8 +329,20 @@ function crearCardProducto(producto) {
     })
     }
 
+    const btnCalificar = document.createElement('button')
+    btnCalificar.type = 'button'
+    btnCalificar.classList.add('card-calificar-btn')
+    btnCalificar.textContent = 'Calificar'
+    btnCalificar.addEventListener('click', () => {
+        const token = localStorage.getItem('token')
+
+        if(!token) window.location.href = '/frontend/pages/auth.html'
+        abrirModalRating(producto._id, producto.nombre)
+    })
+
     precioBtnDiv.appendChild(precio)
     precioBtnDiv.appendChild(btn)
+    precioBtnDiv.appendChild(btnCalificar)
 
     infoDiv.appendChild(marcaCategoria)
     infoDiv.appendChild(nombre)
@@ -490,4 +508,99 @@ perfilBtn.addEventListener('click', (e) => {
         localStorage.removeItem('email')
         window.location.href = '/frontend/landing.html'
     })
+})
+
+
+function abrirModalRating(productoId, nombre) {
+    productoIdSeleccionado = productoId
+    modalProductoNombre.textContent = nombre
+    ratingSeleccionado = 0
+    resetearEstrellas()
+    modalRating.hidden = false
+    modalRating.style.display = 'flex'
+}
+
+function cerrarModalRating() {
+    modalRating.hidden = true
+    modalRating.style.display = 'none'
+    productoIdSeleccionado = null
+    ratingSeleccionado = 0
+    resetearEstrellas()
+}
+
+modalCerrarBtn.addEventListener('click', (e) => {
+    cerrarModalRating()
+})
+
+modalRating.addEventListener('click', (e) => {
+    if(e.target === modalRating) cerrarModalRating()
+})
+
+function resetearEstrellas() {
+    estrellasRating.forEach(estrella => {
+        estrella.classList.remove('fa-solid')
+        estrella.classList.add('fa-regular')
+    })
+}
+
+function iluminarEstrellas(valor) {
+    estrellasRating.forEach(estrella => {
+        const val = Number(estrella.dataset.valor)
+
+        if(val <= valor) {
+            estrella.classList.remove('fa-regular')
+            estrella.classList.add('fa-solid')
+        } else {
+            estrella.classList.remove('fa-solid')
+            estrella.classList.add('fa-regular')
+        }
+    
+    })
+}
+
+estrellasRating.forEach(estrella => {
+    estrella.addEventListener('mouseover', () => iluminarEstrellas(Number(estrella.dataset.valor)))
+    estrella.addEventListener('mouseout', () => iluminarEstrellas(ratingSeleccionado))
+    estrella.addEventListener('click', () => {
+        ratingSeleccionado = Number(estrella.dataset.valor)
+        iluminarEstrellas(ratingSeleccionado)
+    })
+})
+
+modalEnviarBtn.addEventListener('click', async () => {
+    if(ratingSeleccionado === 0) {
+        mostrarToast('Selecciona una calificación', 'error')
+        return
+    }
+
+    try {
+        const token = localStorage.getItem('token')
+
+        if(!token) {
+            window.location.href = '/frontend/pages/auth.html'
+            return
+        }
+
+        const res = await fetch(`${API_URL}/reviews`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                productoId: productoIdSeleccionado,
+                rating: ratingSeleccionado
+            })
+        })
+
+        const data = await res.json()
+
+        if(!res.ok) throw new Error(data.message)
+
+        mostrarToast('calificación enviada')
+        cerrarModalRating()
+        await cargarProductos()
+    } catch(error) {
+        mostrarToast(error.message, 'error')
+    }
 })
