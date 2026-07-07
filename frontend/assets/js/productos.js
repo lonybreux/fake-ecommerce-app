@@ -228,7 +228,7 @@ function crearEstrellas(producto) {
         if (producto.rating % 1 !== 0) html += '<i class="fa-solid fa-star-half-stroke"></i>'
 
         span.innerHTML = html
-        span.appendChild(document.createTextNode(` ${producto.rating}`))
+        span.appendChild(document.createTextNode(` ${producto.rating.toFixed(1)}`))
 
         const reviewsSpan = document.createElement('span')
         reviewsSpan.classList.add('card-reviews-count')
