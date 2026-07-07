@@ -1,8 +1,18 @@
+const loginBtn = document.getElementById('login-btn')
+const perfilDropdown = document.getElementById('perfil-dropdown')
+const perfilNombre = document.getElementById('perfil-nombre')
+const fotoPerfil = document.getElementById('foto-perfil-dropdown')
 async function getTokenStatus() {
 
     const token = localStorage.getItem('token')
 
-    if(!token) return
+    if(!token) {
+        perfilDropdown.style.display = 'none'
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        return
+    }
 
     const res = await fetch('http://localhost:3000/api/auth/status', {
         method: 'GET',
@@ -12,7 +22,22 @@ async function getTokenStatus() {
 
     if(res.status === 403) {
         localStorage.removeItem('token')
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        perfilDropdown.style.display = 'none'
         return
+    }
+
+    if(res.ok) {
+        console.log('token válido, ocultando botón')
+        loginBtn.style.display = 'none'
+        perfilDropdown.style.display = 'flex'
+        const nombre = localStorage.getItem('nombre')
+        perfilNombre.textContent = `Hola, ${nombre}`
+
+        const apellido = localStorage.getItem('apellido')
+        fotoPerfil.innerHTML = `<p>${nombre[0]}${apellido[0]}`
     }
 }
 
@@ -223,3 +248,25 @@ busquedaInput.addEventListener('input', (e) => {
         if(termino.length > 0) window.location.href = `./pages/productos.html?busqueda=${termino}`
     }, 500)
 })
+
+
+const perfilBtn = document.getElementById('perfil-btn')
+
+perfilBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const listaPerfil = document.getElementById('perfil-lista')
+    
+    if(listaPerfil.classList.contains('perfil-lista-active')) listaPerfil.classList.remove('perfil-lista-active')
+    else listaPerfil.classList.add('perfil-lista-active')
+
+    const cerrarSesionBtn = document.getElementById('cerrar-sesion-btn')
+    cerrarSesionBtn.addEventListener('click', () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        window.location.href = '/frontend/landing.html'
+    })
+})
+

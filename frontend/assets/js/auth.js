@@ -55,7 +55,10 @@ iniciarSesionForm.addEventListener('submit', async (e) => {
         if(!res.ok) throw new Error(data.message)
 
         localStorage.setItem('token',data.token)
-        window.location.href = '/frontend/pages/carrito.html'
+        localStorage.setItem('nombre',data.body.nombre)
+        localStorage.setItem('apellido',data.body.apellido)
+        localStorage.setItem('email',data.body.email)
+        window.location.href = '/frontend/landing.html'
 
     } catch(error) {
         console.log(error.message)
