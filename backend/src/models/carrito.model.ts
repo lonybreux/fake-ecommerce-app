@@ -1,4 +1,5 @@
 import { model, Schema, Types, type Document } from "mongoose";
+import type { IProducto } from "./producto.model.js";
 
 export interface ICarrito extends Document {
     clienteId: Types.ObjectId
@@ -12,6 +13,13 @@ export interface ICreateCarritoDto {
     clienteId: Types.ObjectId
     productos: {
         productoId: Types.ObjectId
+        cantidad: number
+    }[]
+}
+
+export interface ICarritoPopulado extends Omit<ICarrito, 'productos'> {
+    productos: {
+        productoId: IProducto,
         cantidad: number
     }[]
 }

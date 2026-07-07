@@ -1,4 +1,4 @@
-import type { ICarrito, ICreateCarritoDto } from "../models/carrito.model.js";
+import type { ICarrito, ICarritoPopulado, ICreateCarritoDto } from "../models/carrito.model.js";
 import type { ICliente } from "../models/cliente.model.js";
 import { Types } from "mongoose";
 import type IRepository from "../repositories/IRepository.js";
@@ -13,13 +13,13 @@ export default class CarritoService {
         return await this.carritoRepository.findAll()
     }
 
-    public async findCarritoById(id: string): Promise<ICarrito> {
+    public async findCarritoById(id: string): Promise<ICarritoPopulado | ICarrito> {
 
         const clienteExists = await this.clienteRepository.findById(id)
 
         if(!clienteExists) throw new Error('El cliente no existe')
 
-        const carrito = await this.carritoRepository.findOne({clienteId: clienteExists._id})
+        const carrito = await this.carritoRepository.findOne({clienteId: clienteExists._id}) as ICarritoPopulado | null
 
         if(!carrito) {
             const newCarrito: ICreateCarritoDto = {

@@ -2,9 +2,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/pago.css">
+    <script defer src="../assets/js/pago.js"></script>
     <title>Pago - ElectroSmart</title>
 </head>
 <body>
-    
+    <header>
+
+        <div id="brand">
+            <a href="../landing.html">
+                <div id="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span>ElectroSmart</span>
+            </a>
+            
+        </div>
+
+        <div id="opciones-div">
+            <a href="../pages/carrito.html" id="seguir-comprando-btn">
+                <i class="fa-solid fa-arrow-left-long"></i>volver al carrito
+            </a>
+
+            <div id="perfil-dropdown">
+            <button id="perfil-btn">
+                <div id="foto-perfil-dropdown"></div>
+                <span id="perfil-nombre">Hola, user</span>
+            </button>
+            <ul id="perfil-lista">
+                <li><a href="./perfil.html">Mis pedidos</a></li>
+                <li><a href="./perfil.html">Mis envios</a></li>
+                <li><a href="./perfil.html">Mis pagos</a></li>
+            </ul>
+        </div>
+        </div>
+
+    </header>
+
+    <main id="main-pago">
+        <div id="pago-header">
+            <h1>Pago</h1>
+            <p>Elige como quieres pagar tu pedido.</p>
+        </div>
+
+        <div id="pago-body">
+            <section id="pago-datos-section">
+
+                <div id="direccion-div">
+                    <h2>Dirección de envío</h2>
+                    <form>
+                        <div>
+                            <label for="direccion-input">Dirección</label>
+                            <input type="text" id="direccion-input" name="direccion" placeholder="Calle, número, piso, puerta" required>
+                        </div>
+                        <div>
+                            <label for="ciudad-input">Ciudad</label>
+                            <input type="text" id="ciudad-input" name="ciudad" placeholder="Madrid" required>
+                        </div>
+
+                        <div>
+                            <label for="telefono-input">Teléfono de contacto</label>
+                            <input type="text" id="telefono-input" name="telefono" placeholder="+51 999 888 777" required>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="metodos-pago-div">
+                    <h2>Método de pago</h2>
+                    <div id="metodos">
+                        <div class="metodo metodo-active" id="tarjeta-metodo">
+                            <button class="seleccionar-metodo-btn" id="tarjeta-metodo-btn"></button>
+                            <div id="metodo-tarjeta-img">
+                                <i class="fa-solid fa-credit-card"></i>
+                            </div>
+
+                            <div class="info-metodo">
+                                <h3>Tarjeta de crédito/débito</h3>
+                                <p>Visa, Mastercard, American Express</p>
+                            </div>
+                        </div>
+                        <div class="metodo" id="paypal-metodo">
+                            <button class="seleccionar-metodo-btn" id="paypal-metodo-btn"></button>
+                            <div id="metodo-paypal-img">
+                                <i class="fa-brands fa-paypal"></i>
+                            </div>
+
+                            <div class="info-metodo">
+                                <h3>PayPal</h3>
+                                <p>Paga con tu cuenta Paypal</p>
+                            </div>
+                        </div>
+
+                        <div class="metodo" id="transferencia-metodo">
+                            <button class="seleccionar-metodo-btn" id="tranferencia-metodo-btn"></button>
+                            <div id="metodo-transferencia-img">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+
+                            <div class="info-metodo">
+                                <h3>Transferencia bancaria</h3>
+                                <p>Recibirás los datos bancarios por correo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <div id="resumen-div">
+                <h2>Resumen del pedido</h2>
+                <div id="resumen-info">
+                    <div id="subtotal-resumen">
+                        <span class="resumen-label">Subtotal</span>
+                        <span id="subtotal-resumen-monto">S/</span>
+                    </div>
+                    <div id="envio-resumen">
+                        <span class="resumen-label">Envío</span>
+                        <span id="gratis-resumen">Gratis</span>
+                    </div>
+                </div>
+                <div id="total-resumen">
+                    <span id="total-label">Total</span>
+                    <span id="total-resumen-monto">S/</span>
+                </div>
+
+                <button id="pagar-btn">Pagar S/</button>
+
+                <div id="resumen-footer">
+                    
+                    <i class="fa-solid fa-shield"></i>
+                    <p>Pago 100% seguro y encriptado</p>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="main-pago-realizado">
+        <div id="exito-card">
+            <div id="check-div">
+                <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <h1>¡Pago completado!</h1>
+            <p>Gracias por tu compra. Recibirás un correo con la confirmación del <br>pedido.</p>
+            <div id="exito-options">
+                <button id="ver-mis-pedidos-btn">Ver mis pedidos</button>
+                <button id="exito-seguir-comprando-btn">Seguir comprando</button>
+            </div>
+        </div>
+        
+    </main>
+
 </body>
 </html>
