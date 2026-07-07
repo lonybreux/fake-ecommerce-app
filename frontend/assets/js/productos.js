@@ -37,18 +37,46 @@ const toastContainer = document.getElementById('toast-container')
 // Le pregunta al backend si el token guardado en localStorage sigue siendo válido.
 // Si el backend responde 403 (prohibido), borra el token guardado.
 // Se ejecuta una sola vez, apenas carga la página.
+const loginBtn = document.getElementById('login-btn')
+const perfilDropdown = document.getElementById('perfil-dropdown')
+const perfilNombre = document.getElementById('perfil-nombre')
+const fotoPerfil = document.getElementById('foto-perfil-dropdown')
 async function getTokenStatus() {
+
     const token = localStorage.getItem('token')
 
-    if (!token) return
+    if(!token) {
+        perfilDropdown.style.display = 'none'
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        return
+    }
 
-    const res = await fetch(`${API_URL}/auth/status`, {
+    const res = await fetch('http://localhost:3000/api/auth/status', {
         method: 'GET',
-        headers: { 'authorization': `Bearer ${token}` }
+        headers: {'authorization': `Bearer ${token}`}
     })
 
-    if (res.status === 403) {
+
+    if(res.status === 403) {
         localStorage.removeItem('token')
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        perfilDropdown.style.display = 'none'
+        return
+    }
+
+    if(res.ok) {
+        console.log('token válido, ocultando botón')
+        loginBtn.style.display = 'none'
+        perfilDropdown.style.display = 'flex'
+        const nombre = localStorage.getItem('nombre')
+        perfilNombre.textContent = `Hola, ${nombre}`
+
+        const apellido = localStorage.getItem('apellido')
+        fotoPerfil.innerHTML = `<p>${nombre[0]}${apellido[0]}`
     }
 }
 
@@ -422,13 +450,23 @@ buscadorInput.addEventListener('input', (e) => {
     }, 300)
 })
 
-// Botón "Categorias" del header: abre/cierra el menú desplegable
-const categoriasBtn = document.getElementById('categorias-btn')
-categoriasBtn.addEventListener('click', e => {
+
+const perfilBtn = document.getElementById('perfil-btn')
+
+perfilBtn.addEventListener('click', (e) => {
     e.preventDefault()
 
-    const dropDown = document.querySelector('.dropdown')
+    const listaPerfil = document.getElementById('perfil-lista')
+    
+    if(listaPerfil.classList.contains('perfil-lista-active')) listaPerfil.classList.remove('perfil-lista-active')
+    else listaPerfil.classList.add('perfil-lista-active')
 
-    if (dropDown.classList.contains('dropdown-active')) dropDown.classList.remove('dropdown-active')
-    else dropDown.classList.add('dropdown-active')
+    const cerrarSesionBtn = document.getElementById('cerrar-sesion-btn')
+    cerrarSesionBtn.addEventListener('click', () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        window.location.href = '/frontend/landing.html'
+    })
 })
