@@ -213,6 +213,8 @@ async function obtenerComentarios() {
         
         const comentarios = data.body
         
+        const comentariosGrid = document.getElementById('comentarios-grid')
+        comentariosGrid.innerHTML = ''
         renderizarComentarios(comentarios)
 
     } catch(error) {
@@ -270,3 +272,56 @@ perfilBtn.addEventListener('click', (e) => {
     })
 })
 
+const comentarioArea = document.getElementById('comentario-area')
+comentarioArea.addEventListener('input', e => {
+    const contadorLetras = document.getElementById('contador-letras')
+
+    contadorLetras.textContent = `${comentarioArea.value.length}/500`
+})
+
+const publicarComentarioBtn = document.getElementById('publicar-comentario-btn')
+
+publicarComentarioBtn.addEventListener('click', async (e) => {
+
+    const token = localStorage.getItem('token')
+    if(!token) {
+        window.location.href = '/frontend/pages/auth.html'
+        return
+    }
+
+
+    if(comentarioArea.value.length > 0) {
+        await publicarComentario(comentarioArea.value.trim())
+        comentarioArea.value = ''
+        const contadorLetras = document.getElementById('contador-letras')
+        contadorLetras.textContent = '0/500'
+        
+        await obtenerComentarios()
+       
+    }
+    else console.log('debe escribir algo')
+})
+
+async function publicarComentario(texto) {
+    try {
+        const token = localStorage.getItem('token')
+
+        const res = await fetch('http://localhost:3000/api/comentarios',{
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization':`Bearer ${token}`
+            },
+            body: JSON.stringify({
+                contenido: texto
+            })
+        })
+
+        const data = await res.json()
+
+        console.log(data)
+
+    } catch(error) {
+        console.log(error)
+    }
+}
