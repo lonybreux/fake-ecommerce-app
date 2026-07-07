@@ -417,11 +417,11 @@ nav ul li a {
 
 #comentarios-section {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px 120px;
     background-color: rgba(243, 244, 246, 0.3);
+    gap: 200px;
 }
 
 #comentarios-header {
@@ -429,6 +429,10 @@ nav ul li a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#comentarios-header p {
+    color: #8f8f91;
 }
 
 #comentarios-grid {
@@ -623,4 +627,85 @@ footer {
 #perfil-lista li button:hover {
     background-color: #f3f4f6;
     border-radius: 8px;
+}
+
+#ver-comentarios-div {
+    display: flex;
+    flex-direction: column;
+}
+
+#crear-comentario-div {
+    display: flex;
+    flex-direction: column;
+}
+
+#crear-comentario-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#crear-comentario-header h3 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+#crear-comentario-header p {
+    text-align: center;
+    color: #8f8f91;
+    
+}
+
+#comentario-escribir-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#comentario-escribir-area textarea {
+    resize: none;
+    width: 100%;
+    height: 120px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #374151;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+#comentario-area:focus {
+    outline-color: #a50d24;
+}
+
+#comentario-area::placeholder {
+    color: #9ca3af;
+}
+
+#comentario-escribir-area p {
+    margin-top: 0;
+    text-align: end;
+    font-size: 12px;
+}
+
+#publicar-comentario-btn {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 8px 16px;
+    border: none;
+    background-color: #cd0f2e;
+    color: white;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#comentario-label {
+    font-size: 12px;
+    font-weight: bold;
 }
