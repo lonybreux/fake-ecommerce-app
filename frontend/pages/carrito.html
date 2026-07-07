@@ -27,9 +27,18 @@
                 <i class="fa-solid fa-arrow-left-long"></i>seguir comprando
             </a>
 
-            <a href="../landing.html" id="cerrar-sesion-btn">
-                Cerrar sesion
-            </a>
+            <div id="perfil-dropdown">
+            <button id="perfil-btn">
+                <div id="foto-perfil-dropdown"></div>
+                <span id="perfil-nombre">Hola, user</span>
+            </button>
+            <ul id="perfil-lista">
+                <li><a href="./pages/perfil.html">Mis pedidos</a></li>
+                <li><a href="./pages/perfil.html">Mis envios</a></li>
+                <li><a href="./pages/perfil.html">Mis pagos</a></li>
+                <li><button id="cerrar-sesion-btn">Cerrar sesión</button></li>
+            </ul>
+        </div>
         </div>
         
         
@@ -74,7 +83,7 @@
                     <span id="monto-total-span">S/0</span>
                 </div>
 
-                <button type="submit"><i class="fa-solid fa-cart-shopping"></i>Finalizar compra</button>
+                <button type="submit" id="finalizar-compra-btn"><i class="fa-solid fa-cart-shopping"></i>Finalizar compra</button>
 
                 <div id="resumen-pedido-footer">
                     <div id="seguridad-div">

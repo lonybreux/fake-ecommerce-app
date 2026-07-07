@@ -1,9 +1,15 @@
+const perfilDropdown = document.getElementById('perfil-dropdown')
+const perfilNombre = document.getElementById('perfil-nombre')
+const fotoPerfil = document.getElementById('foto-perfil-dropdown')
 async function getTokenStatus() {
 
     const token = localStorage.getItem('token')
 
     if(!token) {
-        window.location.href = '/frontend/landing.html'
+        perfilDropdown.style.display = 'none'
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
         return
     }
 
@@ -14,10 +20,22 @@ async function getTokenStatus() {
 
 
     if(res.status === 403) {
-        console.log('403 detectado redirigiendo')
         localStorage.removeItem('token')
-        window.location.href = '../../landing.html'
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        perfilDropdown.style.display = 'none'
         return
+    }
+
+    if(res.ok) {
+        console.log('token válido, ocultando botón')
+        perfilDropdown.style.display = 'flex'
+        const nombre = localStorage.getItem('nombre')
+        perfilNombre.textContent = `Hola, ${nombre}`
+
+        const apellido = localStorage.getItem('apellido')
+        fotoPerfil.innerHTML = `<p>${nombre[0]}${apellido[0]}`
     }
 }
 
@@ -106,6 +124,14 @@ function renderizarProductos(productos) {
 
         const limpiarBtn = document.createElement('button')
         limpiarBtn.innerHTML = '<i class="fa-solid fa-trash"></i>'
+
+        limpiarBtn.addEventListener('click', async (e) => {
+            e.preventDefault()
+
+            await eliminarProducto(p.productoId._id)
+            await getCarrito()
+        })
+
         precioEliminarDiv.appendChild(limpiarBtn)
 
         numerosDiv.appendChild(precioEliminarDiv)
@@ -124,7 +150,9 @@ let montoTotal = 0
 async function getCarrito() {
     
     try{
-        
+        montoTotal = 0
+        const carritoGrid = document.getElementById('carrito-grid')
+        carritoGrid.innerHTML = ''
 
         const token = window.localStorage.getItem('token')
 
@@ -144,6 +172,9 @@ async function getCarrito() {
         
         if(data.body.productos.length > 1) cantidadProductos.textContent = `${data.body.productos.length} productos en el carrito`
         else cantidadProductos.textContent = `${data.body.productos.length} producto en el carrito`
+
+    
+        if(data.body.productos.length === 0) finalizarCompraBtn.style.display = 'none'
 
         renderizarProductos(data.body.productos)
 
@@ -190,6 +221,55 @@ async function agregarUnidadCarrito(productoId) {
             })
         })
 
+        if(!res.ok) throw new Error('Error al agregar')
+        
+        await getCarrito()
+
+    } catch(error) {
+        console.log(error.message)
+    }
+}
+
+const perfilBtn = document.getElementById('perfil-btn')
+
+perfilBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const listaPerfil = document.getElementById('perfil-lista')
+    
+    if(listaPerfil.classList.contains('perfil-lista-active')) listaPerfil.classList.remove('perfil-lista-active')
+    else listaPerfil.classList.add('perfil-lista-active')
+
+    const cerrarSesionBtn = document.getElementById('cerrar-sesion-btn')
+    cerrarSesionBtn.addEventListener('click', () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('nombre')
+        localStorage.removeItem('apellido')
+        localStorage.removeItem('email')
+        window.location.href = '/frontend/landing.html'
+    })
+})
+
+
+const finalizarCompraBtn = document.getElementById('finalizar-compra-btn')
+
+finalizarCompraBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    window.location.href = '/frontend/pages/pago.html'
+})
+
+async function eliminarProducto(productoId) {
+    try {
+        const token = localStorage.getItem('token')
+        const res = await fetch(`http://localhost:3000/api/carrito/${productoId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization':`Bearer ${token}`
+            }
+        })
+        
     } catch(error) {
         console.log(error.message)
     }

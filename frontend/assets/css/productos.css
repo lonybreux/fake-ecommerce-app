@@ -568,6 +568,10 @@ nav ul li a {
     text-align: left;
 }
 
+#perfil-lista li button {
+    font-weight: bold;
+}
+
 #perfil-lista li a:hover,
 #perfil-lista li button:hover {
     background-color: #f3f4f6;
