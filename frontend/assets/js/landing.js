@@ -119,7 +119,7 @@ function renderizarCards(productos) {
 
 async function obtenerMejoresRankeados() {
     
-   try {
+    try {
     
     const res = await fetch('http://localhost:3000/api/productos',{
         method: 'GET',
@@ -139,9 +139,9 @@ async function obtenerMejoresRankeados() {
     console.log(mejoresProductos)
     renderizarCards(mejoresProductos)
 
-   }catch(error) {
+    }catch(error) {
         console.log(error.message)
-   }
+    }
 }
 
 obtenerMejoresRankeados()
@@ -200,6 +200,35 @@ function renderizarComentarios(comentarios) {
     })
 }
 
+function inicializarCarruselComentarios() {
+    const viewport = document.getElementById('comentarios-carousel-viewport')
+    const comentariosGrid = document.getElementById('comentarios-grid')
+
+    if(!viewport || !comentariosGrid || comentariosGrid.children.length === 0) return
+
+    const setOriginal = Array.from(comentariosGrid.children)
+    const anchoSet = comentariosGrid.scrollWidth
+
+    let anchoTotal = anchoSet
+    while(anchoTotal < viewport.clientWidth * 2 + anchoSet) {
+        setOriginal.forEach(card => comentariosGrid.appendChild(card.cloneNode(true)))
+        anchoTotal = comentariosGrid.scrollWidth
+    }
+
+    comentariosGrid.style.setProperty('--comentarios-set-width', `${anchoSet}px`)
+}
+
+function inicializarClickPausaComentarios() {
+    const comentariosSection = document.getElementById('comentarios-section')
+    const comentariosGrid = document.getElementById('comentarios-grid')
+
+    if(!comentariosSection || !comentariosGrid) return
+
+    comentariosSection.addEventListener('click', () => {
+        comentariosGrid.classList.toggle('carrusel-pausado')
+    })
+}
+
 async function obtenerComentarios() {
     try {
         const res = await fetch('http://localhost:3000/api/comentarios',{
@@ -210,17 +239,20 @@ async function obtenerComentarios() {
         const data = await res.json()
 
         if(!res.ok) throw new Error(data.message)
-        
+
         const comentarios = data.body
-        
+
         const comentariosGrid = document.getElementById('comentarios-grid')
         comentariosGrid.innerHTML = ''
         renderizarComentarios(comentarios)
+        inicializarCarruselComentarios()
 
     } catch(error) {
         console.log(error.message)
     }
 }
+
+inicializarClickPausaComentarios()
 
 obtenerComentarios()
 

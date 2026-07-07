@@ -435,11 +435,12 @@ nav ul li a {
 
 #comentarios-section {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px 120px;
+    padding: 40px 0 40px 0;
     background-color: rgba(243, 244, 246, 0.3);
-    gap: 200px;
+    gap: 60px; 
 }
 
 #comentarios-header {
@@ -447,34 +448,60 @@ nav ul li a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0 120px;
+    
 }
 
 #comentarios-header p {
-    color: #8f8f91;
+    color: #8f8f91; 
+}
+
+#comentarios-carousel-viewport {
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+    
 }
 
 #comentarios-grid {
     display: flex;
-    flex-direction: column;
-    gap: 36px;
-    overflow-y: scroll;
-    height: 300px;
-    scrollbar-width: none;
-    
+    flex-direction: row;
+    gap: 24px;
+    width: max-content;
+    animation: comentarios-carrusel 40s linear infinite;
 }
 
-#comentarios-grid::-webkit-scrollbar {
-    display: none;
+#comentarios-grid.carrusel-pausado {
+    animation-play-state: paused;
+}
+
+@keyframes comentarios-carrusel {
+    from {
+        transform: translateX(calc(-1 * var(--comentarios-set-width, 0px)));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #comentarios-grid {
+        animation: none;
+    }
 }
 
 .comentario-div {
     display: flex;
     align-items: center;
-    padding: 24px 48px 24px 48px;
+    flex: 0 0 340px;
+    width: 340px;
+    box-sizing: border-box; 
+    padding: 20px 0;
     border-radius: 15px;
     gap: 24px;
     background-color: #f3f4f6;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
 }
 
 
@@ -486,10 +513,12 @@ nav ul li a {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    min-width: 0;
 }
 
 .comentario-info-div p {
     margin-top: 0;
+    overflow-wrap: break-word;
 }
 
 
@@ -650,11 +679,17 @@ footer {
 #ver-comentarios-div {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    gap: 40px;
 }
 
 #crear-comentario-div {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 24px;
+    box-sizing: border-box;
 }
 
 #crear-comentario-header {
